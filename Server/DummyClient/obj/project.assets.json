@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\FieldS\\source\\repos\\Server\\DummyClient\\DummyClient.csproj",
+      "projectUniqueName": "E:\\git\\CsharpServerStudy\\Server\\DummyClient\\DummyClient.csproj",
       "projectName": "DummyClient",
-      "projectPath": "C:\\Users\\FieldS\\source\\repos\\Server\\DummyClient\\DummyClient.csproj",
+      "projectPath": "E:\\git\\CsharpServerStudy\\Server\\DummyClient\\DummyClient.csproj",
       "packagesPath": "C:\\Users\\FieldS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\FieldS\\source\\repos\\Server\\DummyClient\\obj\\",
+      "outputPath": "E:\\git\\CsharpServerStudy\\Server\\DummyClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

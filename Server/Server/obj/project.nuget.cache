@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hHQf1Kg3F+z92h6ZUFOjMs5O/bBAOTl8uqVH3eM1LQUgJ7O6wu8MtBR94f7Kc78tdV5DKM8YZaudtdLHQiQu9Q==",
+  "dgSpecHash": "t8FugNsTJySjGJvPMZ91UwHT7HpOteuz53zE8Yp+dgIiQI9pig0NANHk3rboAj5JDMCPBOt6Aqwnl6c0umIGiA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\FieldS\\source\\repos\\Server\\Server\\Server.csproj",
+  "projectFilePath": "E:\\git\\CsharpServerStudy\\Server\\Server\\Server.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

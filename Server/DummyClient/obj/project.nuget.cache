@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CdrU0MerQAk/k6FPI8uVPBrCcFSSmeq+U+8RKEe6hquuhPLZdGrCT8KVHA9jsu/UOvSUEN/mgpAseN7QAKEJow==",
+  "dgSpecHash": "4f9zJCpiQ07oAVy/FUS7PQQEsoaMEFCIp+X0k+d6QEvHq8YIT78AnNwbh9Xsorxi2q909eQNgUJzodzyEC/8RA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\FieldS\\source\\repos\\Server\\DummyClient\\DummyClient.csproj",
+  "projectFilePath": "E:\\git\\CsharpServerStudy\\Server\\DummyClient\\DummyClient.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

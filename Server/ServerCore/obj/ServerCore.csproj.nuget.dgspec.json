@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\FieldS\\source\\repos\\Server\\ServerCore\\ServerCore.csproj": {}
+    "E:\\git\\CsharpServerStudy\\Server\\ServerCore\\ServerCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\FieldS\\source\\repos\\Server\\ServerCore\\ServerCore.csproj": {
+    "E:\\git\\CsharpServerStudy\\Server\\ServerCore\\ServerCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\FieldS\\source\\repos\\Server\\ServerCore\\ServerCore.csproj",
+        "projectUniqueName": "E:\\git\\CsharpServerStudy\\Server\\ServerCore\\ServerCore.csproj",
         "projectName": "ServerCore",
-        "projectPath": "C:\\Users\\FieldS\\source\\repos\\Server\\ServerCore\\ServerCore.csproj",
+        "projectPath": "E:\\git\\CsharpServerStudy\\Server\\ServerCore\\ServerCore.csproj",
         "packagesPath": "C:\\Users\\FieldS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\FieldS\\source\\repos\\Server\\ServerCore\\obj\\",
+        "outputPath": "E:\\git\\CsharpServerStudy\\Server\\ServerCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,46 +1,44 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServerCore
 {
 
     class Program
     {
-        static void MainThread(object state)
+        volatile static bool _stop = false;
+       
+        static void ThreadMain()
         {
-            for (int i = 0; i < 5; i++)
-                Console.WriteLine("Hello Thread!");
+            Console.WriteLine("쓰레드 시작");
+
+            while(_stop == false)
+            {
+                //someone want to be stop
+            }
+
+            Console.WriteLine("finish thread");
+             
+
         }
 
         static void Main(string[] args)
         {
+            Task t = new Task(ThreadMain);
+            t.Start();
+
+            Thread.Sleep(1000);
+
+            _stop = true;
+
+            Console.WriteLine("call stop");
+            Console.WriteLine("wait finish");
+            t.Wait();
+
+            Console.WriteLine("finish success");
             
-            ThreadPool.SetMinThreads(1, 1);
-            ThreadPool.SetMaxThreads(5, 5);
-
-            for (int i = 0; i < 4; i++)
-                ThreadPool.QueueUserWorkItem((obj) => { while (true) { } });
-
-            ThreadPool.QueueUserWorkItem(MainThread);
-
-
-        //    Thread t = new Thread(MainThread);
-        //    t.Name = "Test Thread";
-        //    t.IsBackground = true;
-        //    t.Start();
-        //    Console.WriteLine("Waiting for Thread");
-
-
-
-        //    t.Join();
-        //    Console.WriteLine("Hello World");
-        //
-        while(true)
-            {
-
-            }
-
         }
     }
 }

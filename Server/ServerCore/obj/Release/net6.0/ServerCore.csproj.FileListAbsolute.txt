@@ -1,0 +1,15 @@
+E:\git\CsharpServerStudy\Server\ServerCore\bin\Release\net6.0\ServerCore.exe
+E:\git\CsharpServerStudy\Server\ServerCore\bin\Release\net6.0\ServerCore.deps.json
+E:\git\CsharpServerStudy\Server\ServerCore\bin\Release\net6.0\ServerCore.runtimeconfig.json
+E:\git\CsharpServerStudy\Server\ServerCore\bin\Release\net6.0\ServerCore.dll
+E:\git\CsharpServerStudy\Server\ServerCore\bin\Release\net6.0\ServerCore.pdb
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.csproj.AssemblyReference.cache
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.GeneratedMSBuildEditorConfig.editorconfig
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.AssemblyInfoInputs.cache
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.AssemblyInfo.cs
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.csproj.CoreCompileInputs.cache
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.dll
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\refint\ServerCore.dll
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.pdb
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ServerCore.genruntimeconfig.cache
+E:\git\CsharpServerStudy\Server\ServerCore\obj\Release\net6.0\ref\ServerCore.dll
