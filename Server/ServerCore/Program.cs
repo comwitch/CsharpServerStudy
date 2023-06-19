@@ -16,49 +16,46 @@ namespace ServerCore
         /// </summary>
         /// 
 
-        //상호배제
-        static object _lock = new object();
-        static SpinLock _lock2 = new SpinLock();
-        static Mutex _lock3 = new Mutex();
-
-        //[] [] []
-        //reader writer lock slim
-
-        class Reward { }
-
-        static ReaderWriterLockSlim _lock4 = new ReaderWriterLockSlim();
-
-        static Reward GetRewardById(int id)
-        {
-            _lock4.EnterReadLock();
-
-            _lock4.ExitReadLock();
-            
-            
-            
-            return null;
-        }
-
-        static void AddReward(Reward reward)
-        {
-            _lock4.EnterWriteLock();
-
-            _lock4.ExitWriteLock();
-            lock (_lock)
-            {
-
-            }
-
-        }
-
-
+        static volatile int count = 0;
+        static Lock _lock = new Lock();
+        static int iterator = 100000;
 
         static void Main(string[] args)
         {
-            lock(_lock)
-            {
 
-            }
+            Task t1 = new Task(delegate ()
+            {
+                for (int i = 0; i < iterator; i++)
+                {
+                    _lock.WriteLock();
+                    _lock.WriteLock();
+                    count--;
+                    _lock.WriteUnlock();
+                    _lock.WriteUnlock();
+          
+                }
+
+            });
+
+
+            Task t2 = new Task(delegate ()
+            {
+                for (int i = 0; i < iterator; i++)
+                {
+                    _lock.WriteLock();
+                    count++;
+                    _lock.WriteUnlock();
+                }
+
+            });
+
+
+            t1.Start();
+            t2.Start();
+
+            Task.WaitAll(t1, t2);
+
+            Console.WriteLine(count);
         }
     }
 }
