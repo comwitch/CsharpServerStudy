@@ -24,6 +24,11 @@ namespace ServerCore
                 int desired = 1;
                 if(Interlocked.CompareExchange(ref _locked, desired, expected) == expected)
                     break;
+
+                //i want to rest
+                //Thread.Sleep(1); // 1ms정도 무조건 쉬고 싶어요
+                // Thread.Sleep(0); // 조건부 양보 -> 나보다 우선순위가 낮은 애들한테는 양보 불가 -> 우선순위가 나보다 같거나 높은 쓰레드가 없으면 다시 본인에게
+                Thread.Yield(); // 관대한 양보 -> 관대하게 양보할테니, 지금 실행이 필요한 쓰레드가 있으면 실행하세요 -> 실행필요한거아니면 남은시간 소진.
             }
         }
         public void Release()
@@ -34,7 +39,7 @@ namespace ServerCore
 
     class Program
     {
-        static int _num = 0;
+        static volatile int _num = 0;
         static SpinLock _lock = new SpinLock();
         
         static void Thread_1()
