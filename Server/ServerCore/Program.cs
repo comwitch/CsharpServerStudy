@@ -6,60 +6,47 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    class SpinLock
+    class Lock
     {
-        volatile int _locked = 0;
-        
+        //BOOL -> 커널
+        AutoResetEvent _available = new AutoResetEvent(true);
+        ManualResetEvent _available2 = new ManualResetEvent(false);
+       
 
         public void Acquire()
         {
-            while(true)
-            {
-                //int original = Interlocked.Exchange(ref _locked, 1);
-                //if (original == 0)
-                //    break;
-
-                // CAS Compare-And-Swap
-                int expected = 0;
-                int desired = 1;
-                if(Interlocked.CompareExchange(ref _locked, desired, expected) == expected)
-                    break;
-
-                //i want to rest
-                //Thread.Sleep(1); // 1ms정도 무조건 쉬고 싶어요
-                // Thread.Sleep(0); // 조건부 양보 -> 나보다 우선순위가 낮은 애들한테는 양보 불가 -> 우선순위가 나보다 같거나 높은 쓰레드가 없으면 다시 본인에게
-                Thread.Yield(); // 관대한 양보 -> 관대하게 양보할테니, 지금 실행이 필요한 쓰레드가 있으면 실행하세요 -> 실행필요한거아니면 남은시간 소진.
-            }
+            _available2.WaitOne(); // 입장 시도
+            _available2.Reset(); // <- Waitone에 다음이 있다. (auto에는 이럴 필요가 없다)
         }
         public void Release()
         {
-            _locked = 0;
+            _available2.Set();
         }
     }
 
     class Program
     {
         static volatile int _num = 0;
-        static SpinLock _lock = new SpinLock();
+        static Mutex _lock = new Mutex();
         
         static void Thread_1()
         {
-            for (int i = 0; i<100000; i++)
+            for (int i = 0; i<1000000; i++)
             {
-                _lock.Acquire();
+                _lock.WaitOne();
                 _num++;
-                _lock.Release();
+                _lock.ReleaseMutex();
 
             }
         }
 
         static void Thread_2()
         {
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 1000000; i++)
             {
-                _lock.Acquire();
+                _lock.WaitOne();
                 _num--;
-                _lock.Release();
+                _lock.ReleaseMutex();
 
             }
         }
