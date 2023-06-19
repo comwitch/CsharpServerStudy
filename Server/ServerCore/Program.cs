@@ -6,63 +6,59 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-    class Lock
-    {
-        //BOOL -> 커널
-        AutoResetEvent _available = new AutoResetEvent(true);
-        ManualResetEvent _available2 = new ManualResetEvent(false);
-       
-
-        public void Acquire()
-        {
-            _available2.WaitOne(); // 입장 시도
-            _available2.Reset(); // <- Waitone에 다음이 있다. (auto에는 이럴 필요가 없다)
-        }
-        public void Release()
-        {
-            _available2.Set();
-        }
-    }
-
+   
     class Program
     {
-        static volatile int _num = 0;
-        static Mutex _lock = new Mutex();
-        
-        static void Thread_1()
-        {
-            for (int i = 0; i<1000000; i++)
-            {
-                _lock.WaitOne();
-                _num++;
-                _lock.ReleaseMutex();
+        /// <summary>
+        /// 근성
+        /// 양보
+        /// 갑질
+        /// </summary>
+        /// 
 
-            }
+        //상호배제
+        static object _lock = new object();
+        static SpinLock _lock2 = new SpinLock();
+        static Mutex _lock3 = new Mutex();
+
+        //[] [] []
+        //reader writer lock slim
+
+        class Reward { }
+
+        static ReaderWriterLockSlim _lock4 = new ReaderWriterLockSlim();
+
+        static Reward GetRewardById(int id)
+        {
+            _lock4.EnterReadLock();
+
+            _lock4.ExitReadLock();
+            
+            
+            
+            return null;
         }
 
-        static void Thread_2()
+        static void AddReward(Reward reward)
         {
-            for (int i = 0; i < 1000000; i++)
+            _lock4.EnterWriteLock();
+
+            _lock4.ExitWriteLock();
+            lock (_lock)
             {
-                _lock.WaitOne();
-                _num--;
-                _lock.ReleaseMutex();
 
             }
+
         }
+
+
 
         static void Main(string[] args)
         {
+            lock(_lock)
+            {
 
-            Task t1 = new Task(Thread_1);  
-            Task t2 = new Task(Thread_2);
-            t2.Start();
-            t1.Start();
-
-
-            Task.WaitAll(t1, t2);
-
-            Console.WriteLine(_num);
+            }
         }
     }
 }
