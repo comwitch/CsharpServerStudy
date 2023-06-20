@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-
-namespace ServerCore
+﻿namespace ServerCore
 {
     // 재귀적 락을 허용할지(Yes)
     // 스핀락 정책 (5000번 -> yield)
@@ -15,7 +8,7 @@ namespace ServerCore
         const int WRITE_MASK = 0x7FFF0000;
         const int READ_MASK = 0x0000FFFF;
         const int MAX_SPIN_COUNT = 5000;
-        
+
         /**
          * ReadCount : ReadLock을 획득했을때 여러쓰레드가 read를 잡을 수 있으니 카운팅해줌
          * WriteThreadId : WriteLock은 한 스레드만 획득이 가능하므로 그 ID를 저장해 놓는다
@@ -41,7 +34,7 @@ namespace ServerCore
              */
             int desired = (Thread.CurrentThread.ManagedThreadId << 16) & WRITE_MASK;
 
-            while(true)
+            while (true)
             {
                 for (int i = 0; i < MAX_SPIN_COUNT; i++)
                 {
@@ -57,7 +50,7 @@ namespace ServerCore
                 Thread.Yield();
             }
 
-            
+
         }
 
         public void WriteUnlock()
@@ -79,9 +72,9 @@ namespace ServerCore
 
             while (true)
             {
-                for(int i = 0; i < MAX_SPIN_COUNT; i++)
+                for (int i = 0; i < MAX_SPIN_COUNT; i++)
                 {
-                    int expected = (_flag & READ_MASK);  
+                    int expected = (_flag & READ_MASK);
                     if (Interlocked.CompareExchange(ref _flag, expected + 1, expected) == expected) // A(0 -> 1) B(0 -> 1)
                         return;
                 }
