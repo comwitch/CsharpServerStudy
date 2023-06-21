@@ -1,6 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
+using System.ComponentModel;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection.Metadata.Ecma335;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,40 +13,56 @@ namespace ServerCore
    
     class Program
     {
-        /// <summary>
-        /// 근성
-        /// 양보
-        /// 갑질
-        /// </summary>
-        /// 
-
-        // [jobQueue]
-        static ThreadLocal<string> ThreadName = new ThreadLocal<string>(() => { return $"My Name is {Thread.CurrentThread.ManagedThreadId}"; });
-        //static string ThreadName2;
-
-
-        static void WhoAmI()
+        static Listener _listener = new Listener();
+     
+        static void OnAcceptHandler(Socket clientSocket)
         {
-            //ThreadName.Value = $"My Name is {Thread.CurrentThread.ManagedThreadId}";
+            try
+            {
+                //받는다.
+                byte[] recvBuffer = new byte[1024];
+                int recvBytes = clientSocket.Receive(recvBuffer);
+                string recvData = Encoding.UTF8.GetString(recvBuffer, 0, recvBytes);
+                Console.WriteLine($" [From Client] {recvData}");
 
-            bool repeat = ThreadName.IsValueCreated;
-            if(repeat)
-                Console.WriteLine(ThreadName.Value + "(repeat)");
-            else
-                Console.WriteLine(ThreadName.Value);
 
+                //보낸다.
+                byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to MMORPG Server !");
+                clientSocket.Send(sendBuff);
 
+                //촟아낸다.
+                clientSocket.Shutdown(SocketShutdown.Both);
+                clientSocket.Close();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
             
         }
 
         static void Main(string[] args)
         {
-            ThreadPool.SetMinThreads(1, 1);
-            ThreadPool.SetMaxThreads(3, 3);
-            Parallel.Invoke(WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI, WhoAmI);
+            // DNS (Domain Name System)
+            string host = Dns.GetHostName();
+            IPHostEntry ipHost = Dns.GetHostEntry(host);
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
+            Console.WriteLine("Listening");
+            _listener.Init(endPoint, OnAcceptHandler);
+              
 
-            ThreadName.Dispose();
+            while (true)
+            {
+                ;
+               
+            }
+           
+            
+            
+
+            
         }
     }
 }
