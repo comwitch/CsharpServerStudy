@@ -140,7 +140,7 @@ namespace ServerCore
             if(args.BytesTransferred > 0 && args.SocketError == SocketError.Success)
             {
 
-                // TODO
+                
                 try
                 {
                     OnRecv(new ArraySegment<byte>(args.Buffer, args.Offset, args.BytesTransferred));
