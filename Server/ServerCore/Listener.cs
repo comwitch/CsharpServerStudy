@@ -11,23 +11,26 @@ namespace ServerCore
     class Listener
     {
         Socket _listenSocket;
-        Action<Socket> _onAcceptHandler;
+        Func<Session> _sessionFactory;
 
-        public void Init(IPEndPoint endPoint, Action<Socket> onAcceptHandler)
+        public void Init(IPEndPoint endPoint, Func<Session> sessionFactory)
         {
             _listenSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
+            _sessionFactory += sessionFactory;
             //문지기 교육
             _listenSocket.Bind(endPoint);
             //영업 시작
             //backlog : 최대 대기수 
             _listenSocket.Listen(10);
 
+            
             SocketAsyncEventArgs args = new SocketAsyncEventArgs();
             args.Completed += new EventHandler<SocketAsyncEventArgs>(OnAcceptCompleted);
-            _onAcceptHandler += onAcceptHandler;
+            
             //낙시대를 던진다.
             RegisterAccept(args);
+            
+           
         }
 
         void RegisterAccept(SocketAsyncEventArgs args)
@@ -41,13 +44,14 @@ namespace ServerCore
             }
         }
 
+        // red zone : 항상 멀티쓰레드로 일어날 수 있따. 조심조심해서 코딩하세요~!
         void OnAcceptCompleted(object sender, SocketAsyncEventArgs args)
         {
             if (args.SocketError == SocketError.Success)
             {
-                //TODO
-                _onAcceptHandler.Invoke(args.AcceptSocket);
-
+                Session session = _sessionFactory.Invoke();
+                session.Start(args.AcceptSocket);
+                session.OnConnected(args.AcceptSocket.RemoteEndPoint);
             }
             else
                 Console.WriteLine(args.SocketError.ToString());

@@ -7,39 +7,50 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace ServerCore
 {
-   
+    class GameSession : Session
+    {
+        public override void OnConnected(EndPoint endPoint)
+        {
+            Console.WriteLine($"Onconnected :  {endPoint} ");
+
+            //보낸다
+            byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to MMORPG Server! ");
+            Send(sendBuff);
+
+            Thread.Sleep(1000);
+
+            Disconnect();
+            Disconnect();
+        }
+
+        public override void OnDisconnected(EndPoint endPoint)
+        {
+            Console.WriteLine($"Transferred bytes :  {endPoint} ");
+        }
+
+        public override void OnRecv(ArraySegment<byte> buffer)
+        {
+            string recvData = Encoding.UTF8.GetString(buffer.Array, buffer.Offset, buffer.Count);
+            Console.WriteLine($" [From Client] {recvData}");
+
+        }
+
+        public override void OnSend(int numOfBytes)
+        {
+            Console.WriteLine($"Transferred bytes :  {numOfBytes} ");
+
+        }
+    }
+
     class Program
     {
         static Listener _listener = new Listener();
      
-        static void OnAcceptHandler(Socket clientSocket)
-        {
-            try
-            {
-                //받는다.
-                byte[] recvBuffer = new byte[1024];
-                int recvBytes = clientSocket.Receive(recvBuffer);
-                string recvData = Encoding.UTF8.GetString(recvBuffer, 0, recvBytes);
-                Console.WriteLine($" [From Client] {recvData}");
-
-
-                //보낸다.
-                byte[] sendBuff = Encoding.UTF8.GetBytes("Welcome to MMORPG Server !");
-                clientSocket.Send(sendBuff);
-
-                //촟아낸다.
-                clientSocket.Shutdown(SocketShutdown.Both);
-                clientSocket.Close();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            
-        }
+ 
 
         static void Main(string[] args)
         {
@@ -50,7 +61,7 @@ namespace ServerCore
             IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
             Console.WriteLine("Listening");
-            _listener.Init(endPoint, OnAcceptHandler);
+            _listener.Init(endPoint, () => { return new GameSession();  });
               
 
             while (true)
