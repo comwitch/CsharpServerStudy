@@ -13,9 +13,7 @@ C:\Users\FieldS\source\repos\Server\ServerCore\obj\Debug\net6.0\refint\ServerCor
 C:\Users\FieldS\source\repos\Server\ServerCore\obj\Debug\net6.0\ServerCore.pdb
 C:\Users\FieldS\source\repos\Server\ServerCore\obj\Debug\net6.0\ServerCore.genruntimeconfig.cache
 C:\Users\FieldS\source\repos\Server\ServerCore\obj\Debug\net6.0\ref\ServerCore.dll
-E:\git\CsharpServerStudy\Server\ServerCore\bin\Debug\net6.0\ServerCore.exe
 E:\git\CsharpServerStudy\Server\ServerCore\bin\Debug\net6.0\ServerCore.deps.json
-E:\git\CsharpServerStudy\Server\ServerCore\bin\Debug\net6.0\ServerCore.runtimeconfig.json
 E:\git\CsharpServerStudy\Server\ServerCore\bin\Debug\net6.0\ServerCore.dll
 E:\git\CsharpServerStudy\Server\ServerCore\bin\Debug\net6.0\ServerCore.pdb
 E:\git\CsharpServerStudy\Server\ServerCore\obj\Debug\net6.0\ServerCore.csproj.AssemblyReference.cache
@@ -26,5 +24,4 @@ E:\git\CsharpServerStudy\Server\ServerCore\obj\Debug\net6.0\ServerCore.csproj.Co
 E:\git\CsharpServerStudy\Server\ServerCore\obj\Debug\net6.0\ServerCore.dll
 E:\git\CsharpServerStudy\Server\ServerCore\obj\Debug\net6.0\refint\ServerCore.dll
 E:\git\CsharpServerStudy\Server\ServerCore\obj\Debug\net6.0\ServerCore.pdb
-E:\git\CsharpServerStudy\Server\ServerCore\obj\Debug\net6.0\ServerCore.genruntimeconfig.cache
 E:\git\CsharpServerStudy\Server\ServerCore\obj\Debug\net6.0\ref\ServerCore.dll

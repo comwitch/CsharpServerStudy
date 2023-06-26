@@ -28,3 +28,6 @@ E:\git\CsharpServerStudy\Server\DummyClient\obj\Debug\net6.0\refint\DummyClient.
 E:\git\CsharpServerStudy\Server\DummyClient\obj\Debug\net6.0\DummyClient.pdb
 E:\git\CsharpServerStudy\Server\DummyClient\obj\Debug\net6.0\DummyClient.genruntimeconfig.cache
 E:\git\CsharpServerStudy\Server\DummyClient\obj\Debug\net6.0\ref\DummyClient.dll
+E:\git\CsharpServerStudy\Server\DummyClient\bin\Debug\net6.0\ServerCore.dll
+E:\git\CsharpServerStudy\Server\DummyClient\bin\Debug\net6.0\ServerCore.pdb
+E:\git\CsharpServerStudy\Server\DummyClient\obj\Debug\net6.0\DummyClient.csproj.CopyComplete
