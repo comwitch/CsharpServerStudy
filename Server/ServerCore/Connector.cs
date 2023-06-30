@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace ServerCore
 {
-   
     public class Connector
     {
         Func<Session> _sessionFactory;
@@ -35,8 +34,6 @@ namespace ServerCore
             bool pending = socket.ConnectAsync(args);
             if (pending == false)
                 OnConnectComplete(null, args);
-
-
         }
 
         void OnConnectComplete(object sender, SocketAsyncEventArgs args)
@@ -52,6 +49,5 @@ namespace ServerCore
                 Console.WriteLine($"OnConnectCompleted FAil: {args.SocketError}");
             }
         }
-
     }
 }
