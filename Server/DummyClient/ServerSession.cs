@@ -8,16 +8,8 @@ using System.Threading.Tasks;
 
 namespace DummyClient
 {
-    public abstract class Packet
-    {
-        public ushort size;
-        public ushort packetId;
-
-        public abstract ArraySegment<byte> Write();
-        public abstract void Read(ArraySegment<byte> s);
-    }
-
-    class PlayerInfoReq : Packet
+    
+    class PlayerInfoReq 
     {
         public long playerId;
         public string name;
@@ -53,13 +45,9 @@ namespace DummyClient
 
         public List<SkillInfo> skills = new List<SkillInfo>();
 
-        public PlayerInfoReq()
-        {
-            this.packetId = (ushort)PacketId.PlayerInfoReq;
+        
 
-        }
-
-        public override void Read(ArraySegment<byte> segment)
+        public void Read(ArraySegment<byte> segment)
         {
             ReadOnlySpan<byte> s = new ReadOnlySpan<byte>(segment.Array, segment.Offset, segment.Count);
             ushort count = 0;
@@ -74,11 +62,21 @@ namespace DummyClient
             ushort nameLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
             count += sizeof(ushort);
             this.name = Encoding.Unicode.GetString(s.Slice(count, nameLen));
+            count += nameLen;
 
             //skill
+            skills.Clear();
+            ushort skillLen = BitConverter.ToUInt16(s.Slice(count, s.Length - count));
+            count += sizeof(ushort);
+            for (int i = 0; i < skillLen; i++)
+            {
+                SkillInfo skill = new SkillInfo();
+                skill.Read(s, ref count);
+                skills.Add(skill);
+            }
         }
 
-        public override ArraySegment<byte> Write()
+        public ArraySegment<byte> Write()
         {
             
 
@@ -93,7 +91,7 @@ namespace DummyClient
 
             //success &= BitConverter.TryWriteBytes(new Span<byte>(s.Array, s.Offset, s.Count), packet.size);
             count += sizeof(ushort);
-            success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.packetId);
+            success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), (ushort)PacketId.PlayerInfoReq);
             count += sizeof(ushort);
             success &= BitConverter.TryWriteBytes(s.Slice(count, s.Length - count), this.playerId);
             count += sizeof(long);
@@ -122,20 +120,12 @@ namespace DummyClient
         }
     }
 
-    class PlayerInfoOk : Packet
+    class PlayerInfoOk 
     {
         public int hp;
         public int attack;
 
-        public override void Read(ArraySegment<byte> s)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override ArraySegment<byte> Write()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 
     public enum PacketId
@@ -157,11 +147,13 @@ namespace DummyClient
             Console.WriteLine($"Onconnectedccc :  {endPoint} ");
 
             PlayerInfoReq packet = new PlayerInfoReq() {playerId = 1001, name = "ABCD"};
-
+            packet.skills.Add(new PlayerInfoReq.SkillInfo() {id = 101, level = 1, duration= 3.0f });
+            packet.skills.Add(new PlayerInfoReq.SkillInfo() {id = 201, level = 2, duration= 4.0f });
+            packet.skills.Add(new PlayerInfoReq.SkillInfo() {id = 301, level = 3, duration= 5.0f });
+            packet.skills.Add(new PlayerInfoReq.SkillInfo() {id = 401, level = 4, duration= 6.0f });
             ArraySegment<byte> s = packet.Write();
             if(s != null)
                 Send(s);
-
         }
 
         public override void OnDisconnected(EndPoint endPoint)
