@@ -13,3 +13,5 @@ E:\git\CsharpServerStudy\Server\PacketGenerator\obj\Debug\net6.0\refint\PacketGe
 E:\git\CsharpServerStudy\Server\PacketGenerator\obj\Debug\net6.0\PacketGenerator.pdb
 E:\git\CsharpServerStudy\Server\PacketGenerator\obj\Debug\net6.0\PacketGenerator.genruntimeconfig.cache
 E:\git\CsharpServerStudy\Server\PacketGenerator\obj\Debug\net6.0\ref\PacketGenerator.dll
+E:\git\CsharpServerStudy\Server\PacketGenerator\obj\Debug\net6.0\PacketGenerator.Properties.Resources.resources
+E:\git\CsharpServerStudy\Server\PacketGenerator\obj\Debug\net6.0\PacketGenerator.csproj.GenerateResource.cache

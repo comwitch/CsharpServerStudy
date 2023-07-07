@@ -87,7 +87,7 @@ class {0}
         // {3} 멤버 변수의 Read
         // {4} 멤버 변수의 Write
         public static string memberListFormat =
-@"public struct {0}
+@"public class {0}
 {{
     {2} 
 
