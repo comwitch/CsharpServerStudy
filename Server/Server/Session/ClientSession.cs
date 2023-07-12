@@ -1,33 +1,41 @@
 ﻿using ServerCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DummyClient
+namespace Server
 {
 
 
 
-    class ServerSession : PacketSession
+    class ClientSession : PacketSession
     {
-        static unsafe void ToBytes(byte[] array, int offset, ulong value)
-        {
-            fixed (byte* ptr = &array[offset])
-                *(ulong*)ptr = value;
-        }
+        public int SessionId { get; set; }
+        public GameRoom Room { get; set; }
 
         public override void OnConnected(EndPoint endPoint)
         {
-            Console.WriteLine($"Onconnectedccc :  {endPoint} ");
+            Console.WriteLine($"Onconnected :  {endPoint} ");
 
-            
+            Program.Room.Push(() => Program.Room.Enter(this));
+
         }
 
         public override void OnDisconnected(EndPoint endPoint)
         {
+            SessionManager.Instance.Remove(this);
+            if (Room != null)
+            {
+                GameRoom room = Room;
+                room.Push(() => room.Leave(this));
+                Room = null;
+            }
+
+
             Console.WriteLine($"Transferred bytes :  {endPoint} ");
         }
 
@@ -36,10 +44,10 @@ namespace DummyClient
             PacketManager.Instance.OnRecvPacket(this, buffer);
         }
 
-       
         public override void OnSend(int numOfBytes)
         {
             //Console.WriteLine($"Transferred bytes :  {numOfBytes} ");
         }
     }
+
 }
